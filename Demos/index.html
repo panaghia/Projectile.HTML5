@@ -1,0 +1,100 @@
+<html>
+	<head>
+	
+		<style>
+		#debug
+		{
+			position:absolute;
+			right:0px;
+			top:0px;
+			background-color:#fff;
+		}
+		#canv
+		{
+			border:1px solid #444;
+		}
+		</style>
+		<script src="http://www.panaghia.it/lib/moo/core.js" />
+		<script src="../Source/projectile.js" />
+		<script type="text/javascript">
+		var ctx;
+		var pro;
+			
+		var loop = function()
+		{
+			
+			
+			ctx.clearRect(0, 0, 800, 300);
+			pro.render();
+		}
+		
+		
+		
+		window.addEvent('domready', function()
+		{
+			init();
+			document.id('start').addEvent('click', function()
+			{
+				
+			
+					pro = new Projectile({
+					posx : 50,
+					posy : 280,
+					vel: document.id('velocity').get('value'),
+					angle : document.id('angle').get('value'),
+					context: ctx
+					});
+					pro.start();
+					
+				
+			});
+		});
+		
+		function init()
+		{
+			var canvas = document.getElementById('canv');
+		
+			if (canvas.getContext)
+			{
+				ctx = canvas.getContext("2d");
+				
+				pro = new Projectile({
+					posx : 50,
+					posy : 280,
+					vel: document.id('velocity').get('value'),
+					angle : document.id('angle').get('value'),
+					context: ctx
+				});
+				(function(){pro.start();}).delay(500);
+				
+				//loop.periodical(50);	
+				 setInterval(loop,5);  
+			}
+			
+		}
+	
+		
+		</script>
+		
+	</head>
+	<body>
+		<div>
+			<canvas width=800 height=300 id="canv">
+			</canvas>
+		</div>
+		<div>
+			<span>
+				<label>velocity</label>
+				<input type="text" id="velocity" placeholder="velocity" value="80" />
+			</span>
+			<span>
+				<label>angle</label>
+				<input type="text" id="angle" placeholder="angle" value="45" />
+			</span>
+			
+			<input type="button" id="start" style="border:1px solid #999" value="start" />
+		</div>
+		<div id="debug">
+		</div>
+	</body>
+</html>
