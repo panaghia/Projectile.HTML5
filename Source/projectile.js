@@ -1,4 +1,3 @@
-
 var Projectile = new Class({
 	Implements: [Options, Events],
 	options:
