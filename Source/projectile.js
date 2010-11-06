@@ -63,13 +63,13 @@ var Projectile = new Class({
 			
 			var currentVY = this.options.vel * Math.sin(this.options.angle * Math.PI/180) - this.options.gravity * this.options.frameCount;
 			
-			var dm =  'posx: '+this.options.posx+
+			/*var dm =  'posx: '+this.options.posx+
 						'<br/>posy: '+this.options.posy+
 						'<br/>time: '+this.options.frameCount+
 						'<br/>vel: '+this.options.v0x+
 						'<br/>vely: '+currentVY;
 						
-			document.id('debug').set('html', dm);
+			document.id('debug').set('html', dm);*/
 
 		}
 		
