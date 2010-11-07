@@ -1,0 +1,156 @@
+
+<html> 
+	<head> 
+		<title>HTML5.Projectil Demo | Panaghia</title>		
+		<meta name="description" content="Really Simple Projectile Motion in HTML5" /> 
+		<meta name="keywords" content="html5, projectile motion, physics" /> 
+		
+		<link rel="stylesheet" href="style.css" type="text/css" /> 
+				
+		<script type="text/javascript" src="support/mootools-core-1-1.3.js"></script> 
+		<script type="text/javascript" src="support/Lighter.js"></script> 
+		<script type="text/javascript"> 
+		window.addEvent('domready', function()
+		{
+			var light = new Lighter('jsCode', {altLines:'hover'});
+			document.id('starter').addEvent('click', function()
+			{
+				start();			
+			});
+		});
+		</script> 
+	</head> 
+ 
+	<body> 
+	
+	<div id="wrap"> 
+	<h3><a href="http://panaghia.it">Panaghia</a></h3> 
+	<h1>HTML5.Projectile Demo</h1> 
+		<canvas id="surface" width="800" height="400"></canvas> 
+		
+		<nav> 
+			<label for="angle">Angle</label> 
+			<input name="angle" type="text" id="angle" value="45" placeholder="angle" /> 
+			<label for="velocity">Velocity</label> 
+			<input type="text" name="velocity" id="vel" value="80" placeholder="velocity" /> 
+			<input type="button" id="starter" value="start" /> 
+		</nav> 
+		<div id="debug"></div> 
+		
+		<pre > 
+		<h2>Javascript Code</h2> 
+			<code id="jsCode" class="js"> 
+			
+var pro = {
+	x:50, //start pos x
+	y:280, //start pos y
+	r:15, //radius
+	v:80, //init velocity
+	theta: 45 //angle
+	};
+	
+	var canvas = document.getElementById('surface');
+	var ctx = canvas.getContext('2d');
+	
+	var frameCount = 0;
+	var v0x = pro.v * Math.cos(pro.theta * Math.PI/180);
+	var v0y = pro.v * Math.sin(pro.theta * Math.PI/180);
+	var startX = pro.x;
+	var startY = pro.y;
+	var g = 9.8;
+	
+	setInterval(function()
+	{
+		//smooth clear
+		ctx.save();
+			ctx.fillStyle = "rgba(0, 0, 0, .2)";
+			ctx.fillRect(0, 0, canvas.width, canvas.height);
+		ctx.restore();
+		
+		if(pro.y &lt; canvas.height - pro.r)
+			pro.y = startY - ( v0y * frameCount - (1/2 * g * Math.pow(frameCount,2)) );
+		if( pro.x &gt; canvas.width - pro.r)
+			pro.x = startX + v0x * frameCount;
+			
+		ctx.save();
+			ctx.beginPath();
+			ctx.fillStyle = "rgba(0, 200, 0, 0.6)";
+			ctx.arc(pro.x,pro.y,pro.r,0,Math.PI*2,true);
+			ctx.fill();
+			ctx.stroke();
+			ctx.closePath();
+		ctx.restore();
+		frameCount+=.1;
+	}, 1000 / 77);
+			</code> 
+		</pre> 
+		
+	
+		
+		
+		<script type="text/javascript"> 
+		
+			var pro = {
+				x:50,
+				y:380,
+				r:15,
+				v:80,
+				theta: 45
+				};
+				
+				var canvas = document.getElementById('surface');
+				var ctx = canvas.getContext('2d');
+				
+				var frameCount = 0;
+				var v0x = pro.v * Math.cos(pro.theta * Math.PI/180);
+				var v0y = pro.v * Math.sin(pro.theta * Math.PI/180);
+				var startX = pro.x;
+				var startY = pro.y;
+				var g = 9.8;
+				setInterval(function()
+				{
+					//smooth clear
+					ctx.save();
+						ctx.fillStyle = "rgba(0, 0, 0, .3)";
+						ctx.fillRect(0, 0, canvas.width, canvas.height);
+					ctx.restore();
+					
+					if(pro.y<canvas.height - pro.r && pro.x < canvas.width - pro.r)
+					{
+						pro.y = startY - ( v0y * frameCount - (1/2 * g * Math.pow(frameCount,2)) );
+						pro.x = startX + v0x * frameCount;
+					}
+						
+					ctx.save();
+						ctx.beginPath();
+						ctx.fillStyle = "rgba(0, 200, 0, 0.6)";
+						ctx.arc(pro.x,pro.y,pro.r,0,Math.PI*2,true);
+						ctx.fill();
+						ctx.stroke();
+						ctx.closePath();
+					ctx.restore();
+					frameCount+=.1;
+						
+				}, 1000 / 77);	
+			
+			function start()
+			{
+				pro.x = 50;
+				pro.y = 380;
+				pro.v = document.id('vel').get('value');
+				pro.theta = document.id('angle').get('value');
+				frameCount = 0;
+				v0x = pro.v * Math.cos(pro.theta * Math.PI/180);
+				v0y = pro.v * Math.sin(pro.theta * Math.PI/180);
+			}
+			
+		</script> 
+		<footer> 
+	Sergio Panagia &copy; | <a href="http://panaghia.it" title="Panaghia">Panaghia</a> HTML5.Projectile on <a href="https://github.com/panaghia/Projectile.HTML5" title="go on github">GitHub</a> | Extra credits: Js code highlighter <a href="http://mootools.net/forge/p/lighter">on the Forge</a> and fabulous <a href="http://mootools.net" title="go mootools website">MooTools</a> Framework.
+	</footer> 
+	</div> 
+	
+	
+	</body> 
+ 
+</html>
